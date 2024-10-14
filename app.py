@@ -1,23 +1,7 @@
 import streamlit as st
 from login import user_login
-
 import pandas as pd
-import streamlit as st
 from streamlit_gsheets import GSheetsConnection
-
-# Connect to your Google Sheet
-conn = st.connection("gsheets", type=GSheetsConnection)
-
-# Create a sample Pandas DataFrame 
-df = pd.DataFrame({'Name': ['Alice', 'Bob', 'Charlie'],
-                   'Age': [25, 60, 45],
-                   'City': ['New York', 'Los Angeles', 'Chicago']})
-
-# Update GS using sample df
-df = conn.update(
-     worksheet="worksheet_name",
-     data=df,
-)
 
 
 # Page config
@@ -126,7 +110,7 @@ EXTRA_KOKO_ANUGERAH = {
 }
 
 # Logic
-tab1, tab2, tab3, tab4 = st.tabs(['SUKAN/PERMAINAN', 'KELAB/PERSATUAN', 'BADAN BERUNIFORM', 'EKSTRA KURIKULUM'])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(['SUKAN/PERMAINAN', 'KELAB/PERSATUAN', 'BADAN BERUNIFORM', 'EKSTRA KURIKULUM', 'test'])
 
 with tab1:
     col1, col2 = st.columns(2)
@@ -176,6 +160,22 @@ def get_total(i):
         PENCAPAIAN_KELAB[user_data['Peringkat Pencapaian Kelab'][i]] + 
         JAWATAN_PROJEK[user_data['Jawatan Projek'][i]] + 
         PERINGKAT_PROJEK[user_data['Peringkat Projek'][i]])
+
+##testing for connect to google sheet
+with tab5:
+    # Connect to your Google Sheet
+    conn = st.connection("gsheets", type=GSheetsConnection)
+
+    # Create a sample Pandas DataFrame 
+    df = pd.DataFrame({'Name': ['Alice', 'Bob', 'Charlie'],
+                    'Age': [25, 60, 45],
+                    'City': ['New York', 'Los Angeles', 'Chicago']})
+
+    # Update GS using sample df
+    df = conn.update(
+        worksheet="Home",
+        data=df,
+    )
 
 st.markdown('---')
 
@@ -274,6 +274,7 @@ st.html(f'''<table style="width: 100%;">
     </tr>
 </table>
 ''')
+
 
 st.markdown('---')
 st.markdown('Copyright © 2024 JYJH. All Rights Reserved')
