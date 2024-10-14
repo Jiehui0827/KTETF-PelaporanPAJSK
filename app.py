@@ -1,6 +1,25 @@
 import streamlit as st
 from login import user_login
 
+import pandas as pd
+import streamlit as st
+from streamlit_gsheets import GSheetsConnection
+
+# Connect to your Google Sheet
+conn = st.connection("gsheets", type=GSheetsConnection)
+
+# Create a sample Pandas DataFrame 
+df = pd.DataFrame({'Name': ['Alice', 'Bob', 'Charlie'],
+                   'Age': [25, 60, 45],
+                   'City': ['New York', 'Los Angeles', 'Chicago']})
+
+# Update GS using sample df
+df = conn.update(
+     worksheet="worksheet_name",
+     data=df,
+)
+
+
 # Page config
 st.set_page_config(
     page_title='Pengiraan PAJSK KTETF',
