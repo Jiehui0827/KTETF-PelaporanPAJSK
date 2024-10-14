@@ -1,3 +1,3 @@
 .streamlit
 __pycache__
-.streamlit/secrets.toml
+/workspaces/KTETF-PelaporanPAJSK/.streamlit/secrets.toml
