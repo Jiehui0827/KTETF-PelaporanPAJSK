@@ -7,17 +7,43 @@ from streamlit_gsheets import GSheetsConnection
 # Page config
 st.set_page_config(
     page_title='Pengiraan PAJSK KTETF',
-    # page_icon='maths',
+    page_icon='abacus',
     layout='wide',
 )
 
 if not user_login(): st.stop()
 
-# Page title
-st.title('Pengiraan PAJSK KTETF')
+# if user_login():
+#     if ("nextPage" not in st.session_state() or st.session_state["nextPage"] == "home"): 
+#         showpajsk()
+#     elif (st.session_state["nextPage"] == "update"): 
+#         updatepajsk()
+# else:
+#     st.stop()
+
+        
+
+# Add a log out button
+col1, col2 = st.columns([8, 1])
+
+with col1:
+    # Page title
+    st.title('Pengiraan PAJSK KTETF')
+
+with col2:
+    if st.button("Log out", use_container_width=True):
+        st.session_state.logged_in = False  # Reset the logged_in state
+        st.rerun()  # Refresh the page to show the login form again
+
 st.markdown('---')
 
 # Page input: [sukan, kelab, uniform]
+# # Connect to your Google Sheet
+# conn = st.connection("gsheets", type=GSheetsConnection, ttl=10)
+# marks = conn.read(worksheet="Student")
+# user_data = pd.DataFrame(marks)
+# st.dataframe(user_data)
+
 user_data = {
     'Kehadiran Kelab': [0, 0, 0],
     'Jawatan Kelab': ['', '', ''],
@@ -110,7 +136,7 @@ EXTRA_KOKO_ANUGERAH = {
 }
 
 # Logic
-tab1, tab2, tab3, tab4, tab5 = st.tabs(['SUKAN/PERMAINAN', 'KELAB/PERSATUAN', 'BADAN BERUNIFORM', 'EKSTRA KURIKULUM', 'test'])
+tab1, tab2, tab3, tab4 = st.tabs(['SUKAN/PERMAINAN', 'KELAB/PERSATUAN', 'BADAN BERUNIFORM', 'EKSTRA KURIKULUM'])
 
 with tab1:
     col1, col2 = st.columns(2)
@@ -160,22 +186,6 @@ def get_total(i):
         PENCAPAIAN_KELAB[user_data['Peringkat Pencapaian Kelab'][i]] + 
         JAWATAN_PROJEK[user_data['Jawatan Projek'][i]] + 
         PERINGKAT_PROJEK[user_data['Peringkat Projek'][i]])
-
-##testing for connect to google sheet
-with tab5:
-    # Connect to your Google Sheet
-    conn = st.connection("gsheets", type=GSheetsConnection)
-
-    # Create a sample Pandas DataFrame 
-    df = pd.DataFrame({'Name': ['Alice', 'Bob', 'Charlie'],
-                    'Age': [25, 60, 45],
-                    'City': ['New York', 'Los Angeles', 'Chicago']})
-
-    # Update GS using sample df
-    df = conn.update(
-        worksheet="Home",
-        data=df,
-    )
 
 st.markdown('---')
 
@@ -274,7 +284,6 @@ st.html(f'''<table style="width: 100%;">
     </tr>
 </table>
 ''')
-
 
 st.markdown('---')
 st.markdown('Copyright © 2024 JYJH. All Rights Reserved')
