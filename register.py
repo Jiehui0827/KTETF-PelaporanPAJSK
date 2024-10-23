@@ -30,9 +30,35 @@ st.title("Register")
 with st.form("Register form"):
     st.write("Register KOKU Details")
     name=st.text_input("Name")
-    kelas=st.text_input("Class")
 
-    new_row = [name,kelas]
+    kelas_option = st.selectbox(
+    "Class",
+    ("B25-BIO", "B25-PHY", "B25-EK1", "B25-EK2", "B25-PK1", "B25-PK2", "B25-PP1", "B25-PP2", "B25-BM1", "B25-KMK", "B25-SEJ", 
+     "B25-SSB", "B25-SSP", "B25-SVS"),
+    index=None,
+    placeholder="Select your class",
+    )
+
+    race_option= st.selectbox("Race", ("Malay", "Chinese", "Indian", "Others"),index=None,placeholder="Select your race",)
+
+    gender_option = st.selectbox("Gender",("Male", "Female"))
+
+    kelab_option = st.selectbox("Persatuan/Kelab", ("Kelab Malaysiaku", "Kelab Hospitaliti", "Persatuan Seni Visual", 
+                                                    "Persatuan Bahasa", "Persatuan STEM", "Kelab Kerjaya", "Kelab Muzik dan Kebudayaan", "Kelab Pencinta Alam"),
+                                                    index=None,
+                                                    placeholder="Select your Persatuan/Kelab")
+    
+    uniform_option = st.selectbox("Badan Beruniform", ("Pengakap Kelana", "Pandu Puteri Klover", "St. John Ambulans", "Pasukan Institusi Pertahanan Awam (PISPA)", 
+                                                       "Pengakap Udara"),
+                                                       index=None,
+                                                       placeholder="Select your Badan Beruniform")
+    
+    sukan_option = st.selectbox("Sukan/Permainan", ("Kelab Futsal", "Bola Tampar", "Kelab Bola Jaring", "Bola Keranjang", "Ping Pong", "Kelab Catur", "Kelab Frisbee", 
+                                                    "Bola Baling", "Boling Tenpin"),
+                                                    index=None,
+                                                    placeholder="Select your Sukan/Permainan")
+
+    new_row = [name,kelas_option,race_option,gender_option, kelab_option, uniform_option, sukan_option]
 
     submitted = st.form_submit_button("Submit")
     if submitted:
