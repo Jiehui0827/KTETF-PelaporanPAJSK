@@ -25,11 +25,12 @@ client = gspread.authorize(credentials)
 url="https://docs.google.com/spreadsheets/d/1SQtxbYvBVwdWcyeUUkhqHetn9QlJkwCrAhTsE1bPQYw/edit?usp=sharing"
 sh = client.open_by_url(url)
 sheet = sh.worksheet('Student')
+username = "Student1"
 
 st.title("Register")
 with st.form("Register form"):
     st.write("Register KOKU Details")
-    name=st.text_input("Name")
+    name=st.text_input("Name", value=username, disabled=True)
 
     kelas_option = st.selectbox(
     "Class",
@@ -41,7 +42,7 @@ with st.form("Register form"):
 
     race_option= st.selectbox("Race", ("Malay", "Chinese", "Indian", "Others"),index=None,placeholder="Select your race",)
 
-    gender_option = st.selectbox("Gender",("Male", "Female"))
+    gender_option = st.selectbox("Gender",("Male", "Female"), index=None, placeholder="Select your gender")
 
     kelab_option = st.selectbox("Persatuan/Kelab", ("Kelab Malaysiaku", "Kelab Hospitaliti", "Persatuan Seni Visual", 
                                                     "Persatuan Bahasa", "Persatuan STEM", "Kelab Kerjaya", "Kelab Muzik dan Kebudayaan", "Kelab Pencinta Alam"),
